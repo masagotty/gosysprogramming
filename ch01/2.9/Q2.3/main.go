@@ -18,8 +18,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	//ここにコードを書く
 	compressor := gzip.NewWriter(w)
 	writer := io.MultiWriter(compressor, os.Stdout)
+	// gzip.NewWriter()とos.StdoutにJSONを書き込むために、json.NewEncoder()を使用
 	encoder := json.NewEncoder(writer)
 	encoder.SetIndent("", "    ")
+	// encoderにsourceをぶっこむとwriterに出力される
 	encoder.Encode(source)
 	compressor.Flush()
 }
