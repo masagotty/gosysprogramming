@@ -10,6 +10,7 @@ import (
 func dumpChunk(chunk io.Reader) {
 	var length int32
 	binary.Read(chunk, binary.BigEndian, &length)
+	// 第2引数の"4"が、4バイト分
 	buffer := make([]byte, 4)
 	chunk.Read(buffer)
 	fmt.Printf("chunk '%v' (%d bytes)\n", string(buffer), length)
